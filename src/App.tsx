@@ -19,7 +19,6 @@ import { ClippingPage } from './components/ClippingPage';
 import { ServicesPage } from './components/ServicesPage';
 import { CmsAdminModal } from './components/CmsAdminModal';
 import { CmsProvider, useCms } from './context/CmsContext';
-import { SlidersHorizontal } from 'lucide-react';
 import { ProjectItem } from './types';
 
 function AppContent() {
@@ -40,6 +39,7 @@ function AppContent() {
     const isTerms = path === '/terms' || hash === '#/terms' || hash === '#terms';
     const isClipping = path === '/clipping' || hash === '#/clipping' || hash === '#clipping';
     const isServices = path === '/services' || path === '/service' || hash === '#/services' || hash === '#/service' || hash === '#services-page';
+    const isNetherPortal = path === '/netherportalofevotilee' || path === '/netherportalofevotilee/' || hash === '#/netherportalofevotilee' || hash === '#netherportalofevotilee';
 
     // If a stale anchor hash like #distribution-workflow exists on root, clean it so the page starts at the top
     if (hash === '#distribution-workflow') {
@@ -50,7 +50,11 @@ function AppContent() {
     setIsTermsModalOpen(isTerms);
     setIsClippingRoute(isClipping);
     setIsServicesRoute(isServices);
-  }, []);
+
+    if (isNetherPortal) {
+      openCms();
+    }
+  }, [openCms]);
 
   useEffect(() => {
     syncRouteState();
@@ -283,17 +287,6 @@ function AppContent() {
         isOpen={isTermsModalOpen}
         onClose={handleCloseTerms}
       />
-
-      {/* Floating CMS Portal Access Button */}
-      <button
-        onClick={openCms}
-        className="fixed bottom-6 right-6 z-40 px-3.5 py-2.5 rounded-full bg-zinc-900/90 hover:bg-zinc-800 text-emerald-400 hover:text-white border border-emerald-500/40 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer flex items-center gap-2 font-mono text-xs group"
-        title="Open Cloud Firestore CMS (Manage Testimonials & Case Studies)"
-      >
-        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-        <SlidersHorizontal className="w-3.5 h-3.5 group-hover:rotate-90 transition-transform" />
-        <span className="font-semibold tracking-tight text-white">CMS</span>
-      </button>
 
       {/* Cloud Firestore CMS Admin Modal */}
       <CmsAdminModal />

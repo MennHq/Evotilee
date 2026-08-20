@@ -1,8 +1,7 @@
 import React from 'react';
-import { ArrowUpRight, SlidersHorizontal } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { EvotileeLogo } from './ClipeXLogo';
 import { templateConfig } from '../templateConfig';
-import { useCms } from '../context/CmsContext';
 
 interface FooterProps {
   onOpenPrivacy?: () => void;
@@ -12,7 +11,6 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenTerms, onNavigateClipping, onNavigateServices }) => {
-  const { openCms } = useCms();
   const scrollToSection = (id: string) => {
     if (id === 'services' && onNavigateServices) {
       onNavigateServices();
@@ -109,14 +107,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenTerms, onNa
             {templateConfig.footer.copyrightText}
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
-            <button
-              onClick={openCms}
-              className="hover:text-emerald-400 text-zinc-400 transition-colors cursor-pointer bg-transparent border-0 p-0 text-xs font-mono inline-flex items-center gap-1.5 focus-visible:ring-1 focus-visible:ring-white focus:outline-none"
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
-              <span>CMS Portal</span>
-            </button>
-            <span>•</span>
             <button
               onClick={handlePrivacyClick}
               className="hover:text-zinc-300 transition-colors cursor-pointer bg-transparent border-0 p-0 text-xs font-mono text-zinc-500 focus-visible:ring-1 focus-visible:ring-white focus:outline-none"

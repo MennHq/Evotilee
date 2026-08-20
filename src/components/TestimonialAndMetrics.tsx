@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, BarChart3, Filter, Zap, ShieldCheck, Star, Quote, SlidersHorizontal } from 'lucide-react';
+import { CheckCircle2, BarChart3, Filter, Zap, ShieldCheck, Star, Quote } from 'lucide-react';
 import BlurText from './BlurText';
 import { templateConfig } from '../templateConfig';
 import { useCms } from '../context/CmsContext';
@@ -11,7 +11,7 @@ const METRIC_ICONS = [
 ];
 
 export const TestimonialAndMetrics: React.FC = () => {
-  const { publishedReviews, openCms } = useCms();
+  const { publishedReviews } = useCms();
   const { kicker: testKicker, title: testTitle, description: testDesc, principles } = templateConfig.testimonials;
   const { kicker, title, description, items: metrics } = templateConfig.metrics;
 
@@ -50,23 +50,13 @@ export const TestimonialAndMetrics: React.FC = () => {
           </div>
         )}
 
-        {/* Client Reviews & Testimonials (CMS-Powered) */}
+        {/* Client Reviews & Testimonials */}
         {publishedReviews && publishedReviews.length > 0 && (
           <div id="reviews">
             <div className="text-center max-w-3xl mx-auto mb-14 flex flex-col items-center">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-3.5 py-1.5 rounded-full inline-block">
-                  Client Testimonials
-                </span>
-                <button
-                  onClick={openCms}
-                  className="text-xs font-mono text-zinc-400 hover:text-emerald-400 bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-                  title="Open CMS to edit reviews"
-                >
-                  <SlidersHorizontal className="w-3 h-3 text-emerald-400" />
-                  <span>Manage Reviews</span>
-                </button>
-              </div>
+              <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-3.5 py-1.5 rounded-full inline-block mb-3">
+                Client Testimonials
+              </span>
               <BlurText
                 as="h2"
                 text="Verified Client Growth & Impact"
@@ -84,51 +74,51 @@ export const TestimonialAndMetrics: React.FC = () => {
               {publishedReviews.map((rev) => (
                 <div
                   key={rev.id}
-                  className="glass-card rounded-3xl p-7 flex flex-col justify-between border border-white/15 bg-white/[0.02] hover:border-white/30 transition-all duration-300 relative group"
+                  className="glass-card glass-card-hover rounded-3xl p-8 flex flex-col justify-between border border-white/10 relative overflow-hidden group hover:border-white/25 transition-all duration-300 shadow-xl"
                 >
                   <div className="relative z-10">
                     {/* Top rating & quote mark */}
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center justify-between mb-5">
                       <div className="flex items-center gap-1">
                         {Array.from({ length: rev.rating || 5 }).map((_, starIdx) => (
                           <Star key={starIdx} className="w-4 h-4 fill-amber-400 text-amber-400" />
                         ))}
                       </div>
-                      <Quote className="w-6 h-6 text-white/10 group-hover:text-emerald-400/30 transition-colors" />
+                      <Quote className="w-8 h-8 text-white/15 group-hover:text-emerald-400/40 transition-colors" />
                     </div>
 
                     {/* Highlight Metric Badge */}
                     {rev.highlightMetric && (
-                      <div className="mb-4 inline-block px-3 py-1 rounded-lg text-xs font-mono font-bold bg-emerald-950/70 border border-emerald-500/30 text-emerald-400">
+                      <div className="mb-4 inline-block px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-950/80 border border-emerald-500/30 text-emerald-400">
                         {rev.highlightMetric}
                       </div>
                     )}
 
                     {/* Quote Text */}
-                    <p className="text-sm sm:text-base text-zinc-300 font-normal leading-relaxed italic mb-6">
+                    <p className="text-base sm:text-lg text-zinc-300 font-normal leading-relaxed italic mb-6">
                       "{rev.quote}"
                     </p>
                   </div>
 
                   {/* Author Meta */}
-                  <div className="pt-4 border-t border-white/10 flex items-center gap-3 relative z-10">
+                  <div className="pt-4 border-t border-white/10 flex items-center gap-3 relative z-10 mt-auto">
                     {rev.avatarUrl ? (
                       <img
                         src={rev.avatarUrl}
                         alt={rev.name}
-                        className="w-10 h-10 rounded-full object-cover border border-white/20 shrink-0"
+                        className="w-11 h-11 rounded-full object-cover border border-white/20 shrink-0"
                       />
                     ) : (
-                      <div className="w-10 h-10 rounded-full bg-emerald-950 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">
+                      <div className="w-11 h-11 rounded-full bg-emerald-950 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">
                         {rev.name.charAt(0)}
                       </div>
                     )}
                     <div className="min-w-0">
-                      <h4 className="text-sm font-bold text-white tracking-tight truncate">
+                      <h4 className="text-base font-bold text-white tracking-tight truncate">
                         {rev.name}
                       </h4>
                       <p className="text-xs text-zinc-400 font-mono truncate">
-                        {rev.role} • <span className="text-zinc-300">{rev.company}</span>
+                        {rev.role} • <span className="text-emerald-400">{rev.company}</span>
                       </p>
                     </div>
                   </div>

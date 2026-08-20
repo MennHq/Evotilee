@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, ArrowUpRight, SlidersHorizontal } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { ProjectItem } from '../types';
 import BlurText from './BlurText';
 import { templateConfig } from '../templateConfig';
@@ -10,7 +10,7 @@ interface WorkCarouselProps {
 }
 
 export const WorkCarousel: React.FC<WorkCarouselProps> = ({ onSelectProject }) => {
-  const { publishedProjects, openCms } = useCms();
+  const { publishedProjects } = useCms();
   const projectsData: ProjectItem[] = publishedProjects.length > 0 ? publishedProjects : templateConfig.portfolio.projects;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -90,19 +90,9 @@ export const WorkCarousel: React.FC<WorkCarouselProps> = ({ onSelectProject }) =
         
         {/* Carousel Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-3.5 py-1.5 rounded-full inline-block">
-              {templateConfig.portfolio.kicker}
-            </span>
-            <button
-              onClick={openCms}
-              className="text-xs font-mono text-zinc-400 hover:text-emerald-400 bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-              title="Open CMS to edit case studies & growth campaigns"
-            >
-              <SlidersHorizontal className="w-3 h-3 text-emerald-400" />
-              <span>Manage Campaigns</span>
-            </button>
-          </div>
+          <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 bg-emerald-950/80 border border-emerald-500/30 px-3.5 py-1.5 rounded-full inline-block mb-3">
+            {templateConfig.portfolio.kicker}
+          </span>
           <BlurText
             as="h2"
             text={templateConfig.portfolio.title}

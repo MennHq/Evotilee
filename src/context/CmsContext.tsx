@@ -142,24 +142,19 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     // Initial connection ping check
     runConnectionTest();
 
-    // Check URL hash for direct #cms or #admin entry
-    const handleHashChange = () => {
-      if (window.location.hash === '#cms' || window.location.hash === '#admin') {
+    // Check URL strictly for /netherportalofevotilee route or hash
+    const checkNetherPortalRoute = () => {
+      const path = window.location.pathname;
+      const hash = window.location.hash;
+      const isPortal = path === '/netherportalofevotilee' || path === '/netherportalofevotilee/' || hash === '#/netherportalofevotilee' || hash === '#netherportalofevotilee';
+      if (isPortal) {
         setIsCmsOpen(true);
       }
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-
-    // Keyboard shortcut: Cmd/Ctrl + Shift + C
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.key === 'A' || e.key === 'a')) {
-        e.preventDefault();
-        setIsCmsOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
+    checkNetherPortalRoute();
+    window.addEventListener('popstate', checkNetherPortalRoute);
+    window.addEventListener('hashchange', checkNetherPortalRoute);
 
     // Subscribe to Firestore collections with real-time feedback
     const unsubReviews = subscribeToReviews(
@@ -183,8 +178,8 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     );
 
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('popstate', checkNetherPortalRoute);
+      window.removeEventListener('hashchange', checkNetherPortalRoute);
       unsubReviews();
       unsubCampaigns();
     };
@@ -198,8 +193,10 @@ export const CmsProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const closeCms = () => {
     setIsCmsOpen(false);
-    if (window.location.hash === '#cms' || window.location.hash === '#admin') {
-      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    const path = window.location.pathname;
+    const hash = window.location.hash;
+    if (path === '/netherportalofevotilee' || path === '/netherportalofevotilee/' || hash === '#/netherportalofevotilee' || hash === '#netherportalofevotilee') {
+      window.history.replaceState(null, '', '/');
     }
   };
 

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, ArrowUpRight, Sparkles, SlidersHorizontal } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 import { EvotileeLogo, EvotileeBrandText } from './ClipeXLogo';
 import { templateConfig } from '../templateConfig';
-import { useCms } from '../context/CmsContext';
 
 interface NavbarProps {
   onStartProject: () => void;
@@ -14,7 +13,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartProject, onNavigateClippi
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { openCms } = useCms();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -105,16 +103,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartProject, onNavigateClippi
         {/* Right Actions */}
         <div className="flex items-center gap-2 sm:gap-3 relative shrink-0">
           <button
-            onClick={openCms}
-            className="inline-flex items-center gap-1.5 px-3 py-2 sm:py-2.5 rounded-xl font-medium text-xs text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 transition-all cursor-pointer group focus-visible:ring-2 focus-visible:ring-white focus:outline-none"
-            title="Open Cloud Firestore CMS (Manage Reviews & Campaigns)"
-          >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-45 transition-transform" />
-            <span className="hidden sm:inline font-mono">CMS Portal</span>
-            <span className="sm:hidden font-mono">CMS</span>
-          </button>
-
-          <button
             onClick={onStartProject}
             className="hidden sm:inline-flex relative items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl font-black text-xs tracking-wide uppercase text-black bg-gradient-to-r from-white via-zinc-100 to-zinc-200 hover:from-white hover:to-white transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] hover:scale-[1.02] active:scale-[0.98] cursor-pointer overflow-hidden border border-white/80 shrink-0 group focus-visible:ring-2 focus-visible:ring-white focus:outline-none"
           >
@@ -139,19 +127,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartProject, onNavigateClippi
             {isMenuOpen && (
               <div className="absolute right-0 top-14 w-60 rounded-2xl bg-[#121214] border border-white/15 p-2.5 shadow-[0_20px_50px_rgba(0,0,0,0.95)] backdrop-blur-2xl z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                 <div className="flex flex-col gap-1">
-                  <button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      openCms();
-                    }}
-                    className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-zinc-900 border border-emerald-500/40 text-emerald-300 hover:text-white hover:bg-emerald-950 text-sm font-medium transition-all group w-full text-left cursor-pointer"
-                  >
-                    <span className="flex items-center gap-2">
-                      <SlidersHorizontal className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>CMS Admin Portal</span>
-                    </span>
-                    <ArrowUpRight className="w-4 h-4 text-emerald-400" />
-                  </button>
                   {onNavigateClipping && (
                     <button
                       onClick={() => {
