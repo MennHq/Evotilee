@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "Review": {
+      "title": "Review",
+      "description": "Client testimonial and review entity",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "company": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "quote": { "type": "string" },
+        "rating": { "type": "number" },
+        "highlightMetric": { "type": "string" },
+        "isPublished": { "type": "boolean" },
+        "orderIndex": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "role", "company", "quote", "rating"]
+    },
+    "Campaign": {
+      "title": "Campaign",
+      "description": "Client growth campaign and case study entity",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "badge": { "type": "string" },
+        "description": { "type": "string" },
+        "image": { "type": "string" },
+        "client": { "type": "string" },
+        "primaryMetric": { "type": "string" },
+        "secondaryMetric": { "type": "string" },
+        "deliverables": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "isPublished": { "type": "boolean" },
+        "orderIndex": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "category", "description", "image", "client"]
+    }
+  },
+  "firestore": {
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Public client testimonials and reviews managed via CMS"
+    },
+    "/campaigns/{campaignId}": {
+      "schema": { "$ref": "#/entities/Campaign" },
+      "description": "Client growth campaigns and case studies managed via CMS"
+    }
+  }
+}

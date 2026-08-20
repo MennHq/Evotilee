@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    color-scheme: dark;
+    background-color: #080808;
+  }
+  body {
+    background-color: #080808;
+    color: #ffffff;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f1f23;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Glass Card & Surface Styles */
+.glass-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  pointer-events: none;
+}
+
+.glass-card-hover {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 25px 50px -15px rgba(0, 0, 0, 0.9), 0 0 30px -10px rgba(255, 255, 255, 0.1);
+}
+
+/* Radial Glow Effects */
+.radial-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 80%);
+}
+
+.radial-glow-cta {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 40%, rgba(8, 8, 8, 0.98) 80%);
+}
+
+/* Equalizer Animations - Slower, elegant oscillation speed */
+@keyframes eq-bar {
+  0%, 100% {
+    height: 25%;
+  }
+  50% {
+    height: 95%;
+  }
+}
+
+.animate-eq-1 { animation: eq-bar 3.8s ease-in-out infinite 0.2s; }
+.animate-eq-2 { animation: eq-bar 4.4s ease-in-out infinite 0.8s; }
+.animate-eq-3 { animation: eq-bar 3.4s ease-in-out infinite 1.5s; }
+.animate-eq-4 { animation: eq-bar 4.8s ease-in-out infinite 0.5s; }
+.animate-eq-5 { animation: eq-bar 4.0s ease-in-out infinite 1.2s; }
+.animate-eq-6 { animation: eq-bar 5.0s ease-in-out infinite 1.8s; }
+.animate-eq-7 { animation: eq-bar 3.6s ease-in-out infinite 0.6s; }
+.animate-eq-8 { animation: eq-bar 4.3s ease-in-out infinite 1.3s; }
+.animate-eq-9 { animation: eq-bar 3.5s ease-in-out infinite 0.9s; }
+.animate-eq-10 { animation: eq-bar 4.6s ease-in-out infinite 0.3s; }
+.animate-eq-11 { animation: eq-bar 3.9s ease-in-out infinite 1.4s; }
+
+/* Rotating star spin */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+/* Vertical Infinite Marquee Animations */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.animate-scroll-up {
+  animation: scroll-up 28s linear infinite;
+}
+
+.animate-scroll-down {
+  animation: scroll-down 32s linear infinite;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Remove scrollbars, borders, and outlines from Cal.com embeds */
+#my-cal-inline-distribution,
+#my-cal-inline-distribution *,
+cal-inline,
+cal-inline iframe,
+iframe[src*="cal.com"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+#my-cal-inline-distribution::-webkit-scrollbar,
+#my-cal-inline-distribution *::-webkit-scrollbar,
+cal-inline::-webkit-scrollbar,
+cal-inline iframe::-webkit-scrollbar,
+iframe[src*="cal.com"]::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+cal-inline,
+cal-inline iframe {
+  width: 100% !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
